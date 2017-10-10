@@ -18,7 +18,8 @@ public class AppTest extends TestCase {
 	public WebDriver chrome;
 	
 	public String [][] websites = { {"https://www.youtube.com", "YouTube"}, 
-	                              {"https://www.reddit.com","reddit: the front page of the internet"}};
+	                              {"https://www.reddit.com","reddit: the front page of the internet"},
+	                              {"https://www.gamasutra.com", "Gamasutra - The Art & Business of Making Games"}};
 	
 	@BeforeMethod
 	public void Before() {
@@ -27,14 +28,14 @@ public class AppTest extends TestCase {
 		 System.out.println("Your journey has begun");
 	}
 	
-	@Test
+	@Test(groups = {"p1", "YouTube"})
 	public void testOne() {
 		chrome.get(websites[0][0]);
 		String title = chrome.getTitle();
 		Assert.assertEquals(title, websites[0][1]);
 	}
 	
-	@Test
+	@Test(groups = {"p2", "reddit"})
 	public void testTwo() {
 		chrome.get(websites[1][0]);
 		String title = chrome.getTitle();
@@ -47,6 +48,19 @@ public class AppTest extends TestCase {
 	    username.sendKeys("ridleysamus");
 		password.sendKeys("G");
 		login.click();
+	}
+	
+	@Test(groups = {"p3", "Gamasutra"})
+	public void testThree() {
+		chrome.get(websites[2][0]);
+		String title = chrome.getTitle();
+		Assert.assertEquals(title, websites[2][1]);
+		
+		WebElement articleOne = chrome.findElement(By.linkText("Divinity: Original Sin 2 dev explores how open game dev can help (and hurt) progress"));
+		articleOne.click();
+		
+		WebElement articleTwo = chrome.findElement(By.linkText(" full PC Gamer interview"));
+		articleTwo.click();
 	}
 	
 	@AfterMethod
