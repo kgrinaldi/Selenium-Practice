@@ -17,7 +17,8 @@ public class AppTest extends TestCase {
 	
 	public WebDriver chrome;
 	
-	public String [][] websites = { {"https://www.youtube.com", "YouTube"} };
+	public String [][] websites = { {"https://www.youtube.com", "YouTube"}, 
+	                              {"https://www.reddit.com","reddit: the front page of the internet"}};
 	
 	@BeforeMethod
 	public void Before() {
@@ -31,6 +32,21 @@ public class AppTest extends TestCase {
 		chrome.get(websites[0][0]);
 		String title = chrome.getTitle();
 		Assert.assertEquals(title, websites[0][1]);
+	}
+	
+	@Test
+	public void testTwo() {
+		chrome.get(websites[1][0]);
+		String title = chrome.getTitle();
+		Assert.assertEquals(title, websites [1][1]);
+		
+		WebElement username = chrome.findElement(By.name("user"));
+	    WebElement password = chrome.findElement(By.name("passwd"));
+	    WebElement login = chrome.findElement(By.className("btn"));
+	    
+	    username.sendKeys("ridleysamus");
+		password.sendKeys("G");
+		login.click();
 	}
 	
 	@AfterMethod
